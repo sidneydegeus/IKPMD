@@ -6,7 +6,7 @@ import javax.persistence.EmbeddedId;
 /**
  * Created by Sidney on 1/19/2017.
  */
-public class CourseEntity {
+public class CourseEntity implements EntityObject {
 
     @EmbeddedId
     CourseEntityPrimaryKey courseEntityPrimaryKey;
