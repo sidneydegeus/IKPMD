@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_overview"
+        android:title="Overzicht"
+        android:onClick="goToOverview"/>
+
+    <item android:id="@+id/nav_courses"
+        android:title="Vakken"
+        android:onClick="goToCourses"/>
+
+    <item android:id="@+id/nav_settings"
+        android:title="Instellingen"
+        android:onClick="goToSettings"/>
+
+</menu>
