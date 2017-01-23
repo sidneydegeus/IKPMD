@@ -1,4 +1,4 @@
-package com.example.ikpmd;
+package com.example.ikpmd.activity;
 
 import android.content.Intent;
 import android.support.v4.view.WindowCompat;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.ikpmd.R;
 
 public class MainActivity extends AppCompatActivity {
 
