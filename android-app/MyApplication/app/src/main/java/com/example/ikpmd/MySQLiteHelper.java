@@ -11,22 +11,25 @@ import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
+    public static final String TABLE_ID = "id";
     public static final String TABLE_COURSE = "course";
     public static final String COLUMN_CODE = "code";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_GRADE = "grade";
     public static final String COLUMN_PERIOD = "period";
+    public static final String COLUMN_EC = "ec";
 
     private static final String DATABASE_NAME = "ikpmd.db";
     private static final int DATABASE_VERSION = 1;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_COURSE + " ( "
+            + TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_CODE + " VARCHAR, "
             + COLUMN_NAME + " VARCHAR NOT NULL, "
             + COLUMN_GRADE + " INTEGER, "
             + COLUMN_PERIOD + " INTEGER NOT NULL, "
-            + "CONSTRAINT code_pk PRIMARY KEY (" + COLUMN_CODE + ")"
+            + COLUMN_EC + " INTEGER NOT NULL "
             + ");";
 
 

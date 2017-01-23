@@ -8,24 +8,35 @@ import java.io.Serializable;
 
 public class Course implements Serializable {
 
+    private int id;
     private String code;
     private String name;
-    private int grade;
+    private double grade;
     private int period;
 
+    private int ec;
+
     public Course() {}
-    public Course(String code, String name, int grade, int period) {
-        this.code = code;
+    public Course(String code, String name, int grade, int period, int ec) {
+        this.code = code.toUpperCase();
         this.name = name;
         this.grade = grade;
         this.period = period;
+        this.ec = ec;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCode() {
         return code;
     }
     public void setCode(String code) {
-        this.code = code;
+        this.code = code.toUpperCase();
     }
 
     public String getName() {
@@ -35,10 +46,10 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public int getGrade() {
+    public double getGrade() {
         return grade;
     }
-    public void setGrade(int grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 
@@ -49,8 +60,16 @@ public class Course implements Serializable {
         this.period = period;
     }
 
-    @Override
-    public String toString() {
-        return name;
+    public int getEc() {
+        return ec;
     }
+    public void setEc(int ec) {
+        this.ec = ec;
+    }
+
+/*    @Override
+    public String toString() {
+        String result = code + ", " + name + ", " + grade;
+        return result;
+    }*/
 }

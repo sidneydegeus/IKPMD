@@ -32,6 +32,7 @@ public class CourseDataSource {
 
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
+        //dbHelper.onUpgrade(database, 1, 2);
     }
 
     public void close() {
@@ -46,6 +47,7 @@ public class CourseDataSource {
         values.put(MySQLiteHelper.COLUMN_NAME, course.getName());
         values.put(MySQLiteHelper.COLUMN_GRADE, course.getGrade());
         values.put(MySQLiteHelper.COLUMN_PERIOD, course.getPeriod());
+        values.put(MySQLiteHelper.COLUMN_EC, course.getEc());
         database.insert(MySQLiteHelper.TABLE_COURSE, null, values);
         close();
     }
@@ -59,14 +61,30 @@ public class CourseDataSource {
         if (cursor.moveToFirst()) {
             do {
                 Course course = new Course();
-                course.setCode(cursor.getString(0));
-                course.setName(cursor.getString(1));
-                course.setGrade(Integer.parseInt(cursor.getString(2)));
-                course.setPeriod(Integer.parseInt(cursor.getString(3)));
+                course.setId(Integer.parseInt(cursor.getString(0)));
+                course.setCode(cursor.getString(1));
+                course.setName(cursor.getString(2));
+                course.setGrade(Double.parseDouble(cursor.getString(3)));
+                course.setPeriod(Integer.parseInt(cursor.getString(4)));
+                course.setEc(Integer.parseInt(cursor.getString(5)));
                 courseList.add(course);
             } while (cursor.moveToNext());
         }
         close();
         return courseList;
+    }
+
+    public void updateCourse(Course course) {
+        open();
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_CODE, course.getCode());
+        values.put(MySQLiteHelper.COLUMN_NAME, course.getName());
+        values.put(MySQLiteHelper.COLUMN_GRADE, course.getGrade());
+        values.put(MySQLiteHelper.COLUMN_PERIOD, course.getPeriod());
+        values.put(MySQLiteHelper.COLUMN_EC, course.getEc());
+
+        // updating row
+        database.update(MySQLiteHelper.TABLE_COURSE, values, MySQLiteHelper.TABLE_ID + " = ?",
+                new String[] { String.valueOf(course.getId()) });
     }
 }

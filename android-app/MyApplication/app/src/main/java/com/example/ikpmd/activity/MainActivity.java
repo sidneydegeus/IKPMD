@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.ikpmd.R;
+import com.example.ikpmd.activity.course.CourseActivity;
 
 public class MainActivity extends AppCompatActivity {
 
