@@ -11,6 +11,7 @@
 
         <TextView
             android:id="@+id/textViewCode"
+            android:textColor="@color/primaryText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Code"
@@ -33,12 +34,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/primaryText"
                     android:text="EC: "
                     android:textSize="22sp"
                     android:layout_marginRight="35dp"/>
 
                 <TextView
                     android:id="@+id/textViewEc"
+                    android:textColor="@color/primaryText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="EcNr"
@@ -54,6 +57,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/primaryText"
                     android:text="Cijfer: "
                     android:textSize="22sp"
                     android:layout_marginRight="10dp"/>
@@ -62,6 +66,7 @@
                     android:id="@+id/textViewGrade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/primaryText"
                     android:text="GradeNr"
                     android:textSize="22sp"/>
             </LinearLayout>
@@ -73,6 +78,7 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/primaryText"
         android:text="Name"
         android:textSize="18sp"
         android:paddingTop="10dp"/>

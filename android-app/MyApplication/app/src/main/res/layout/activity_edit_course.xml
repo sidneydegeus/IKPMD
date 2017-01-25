@@ -33,6 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Code"
+                    android:textColor="@color/primaryText"
                     android:textSize="26sp"
                     android:id="@+id/textView"
                     android:paddingTop="6dp"
@@ -42,6 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Naam"
+                    android:textColor="@color/primaryText"
                     android:textSize="26sp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"/>
@@ -50,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cijfer"
+                    android:textColor="@color/primaryText"
                     android:textSize="26sp"
                     android:paddingTop="5dp"
                     android:paddingBottom="6dp"/>
@@ -58,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Periode"
+                    android:textColor="@color/primaryText"
                     android:textSize="26sp"
                     android:paddingTop="5dp"
                     android:paddingRight="10dp"
@@ -67,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EC"
+                    android:textColor="@color/primaryText"
                     android:textSize="26sp"
                     android:paddingTop="5dp"
                     android:paddingRight="10dp"
@@ -87,6 +92,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:textColor="@color/primaryText"
+                    android:backgroundTint="#FFFFFF"
                     android:inputType="textPersonName" />
 
                 <EditText
@@ -94,6 +101,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:textColor="@color/primaryText"
+                    android:backgroundTint="#FFFFFF"
                     android:inputType="textPersonName"/>
 
                 <EditText
@@ -101,6 +110,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:ems="10"
+                    android:textColor="@color/primaryText"
+                    android:backgroundTint="#FFFFFF"
                     android:id="@+id/editTextGrade" />
 
                 <EditText
@@ -108,6 +119,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
+                    android:textColor="@color/primaryText"
+                    android:backgroundTint="#FFFFFF"
                     android:id="@+id/editTextPeriod" />
 
                 <EditText
@@ -115,6 +128,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
+                    android:textColor="@color/primaryText"
+                    android:backgroundTint="#FFFFFF"
                     android:id="@+id/editTextEc" />
 
             </LinearLayout>

@@ -2,4 +2,6 @@
     <string name="app_name">IKPMD</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <color name="background">#1d2026</color>
+    <color name="primaryText">#FFFFFF</color>
 </resources>
