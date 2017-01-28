@@ -19,7 +19,7 @@
         <activity android:name=".activity.course.CourseActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.course.AddCourseActivity" />
-        <activity android:name=".activity.course.EditCourseActivity"></activity>
+        <activity android:name=".activity.course.EditCourseActivity" />
     </application>
 
 </manifest>

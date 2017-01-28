@@ -2,13 +2,18 @@ package com.example.ikpmd.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.ikpmd.CourseDataSource;
-import com.example.ikpmd.MySQLiteHelper;
 import com.example.ikpmd.R;
+import com.example.ikpmd.activity.MainActivity;
+import com.example.ikpmd.fragment.ArcProgressFragment;
+import com.example.ikpmd.fragment.ECFragment;
 import com.example.ikpmd.model.Course;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 
@@ -19,12 +24,17 @@ import static android.graphics.Color.parseColor;
 
 public class OverviewActivity extends MainActivity {
 
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+
     private CourseDataSource courseDataSource;
 
     //data
     private double averageGrade;
     private int totalEC = 0;
     private int currentEC = 0;
+    private int totalCourses = 0;
+    private int coursesPassed = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,37 +47,9 @@ public class OverviewActivity extends MainActivity {
         courseDataSource = new CourseDataSource(this);
         calculateData();
 
-        defineArcProgress();
-    }
-
-    private void defineArcProgress() {
-        ArcProgress arcProgress = (ArcProgress) findViewById(R.id.arc_progress);
-        arcProgress.setStrokeWidth(30f);
-        arcProgress.setTextSize(250f);
-        arcProgress.setSuffixTextSize(100f);
-        arcProgress.setMax(10);
-
-        arcProgress.setFinishedStrokeColor(arcColor(averageGrade));
-        arcProgress.setProgress((int) Math.floor(averageGrade));
-
-        double fractionalPart = averageGrade % 1;
-        DecimalFormat decimalFormat = new DecimalFormat(".00");
-        String fractional = decimalFormat.format(fractionalPart);
-        arcProgress.setSuffixText(fractional);
-    }
-
-    private int arcColor(double grade) {
-        int color;
-        if (grade < 4.0) {
-            color = Color.RED;
-        } else if (grade >= 4.0 && grade < 5.5) {
-            color = parseColor("#FFC6640E");
-        } else if (grade >= 5.5 && grade <= 6.9) {
-            color = Color.YELLOW;
-        } else {
-            color = Color.GREEN;
-        }
-        return color;
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
     private void calculateData() {
@@ -76,8 +58,10 @@ public class OverviewActivity extends MainActivity {
         int participatedTests = 0;
         for (Course course : list) {
             this.totalEC += course.getEc();
+            this.totalCourses++;
             if (course.getGrade() >= 5.5) {
                 this.currentEC += course.getEc();
+                this.coursesPassed++;
             }
             if (course.getGrade() >= 1 && course.getGrade() <= 10) {
                 totalGrade += course.getGrade();
@@ -85,5 +69,57 @@ public class OverviewActivity extends MainActivity {
             }
         }
         this.averageGrade = (totalGrade / participatedTests);
+    }
+
+    public double getAverageGrade() {
+        return this.averageGrade;
+    }
+    public int getTotalEC() {
+        return this.totalEC;
+    }
+    public int getCurrentEC() {
+        return this.currentEC;
+    }
+    public int getTotalCourses() { return this.totalCourses; }
+    public int getCoursesPassed() { return this.coursesPassed; }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment;
+            if (position == 0) {
+                fragment = ArcProgressFragment.newInstance(position + 1);
+            } else {
+                fragment = ECFragment.newInstance(position + 1);
+            }
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "SECTION 1";
+                case 1:
+                    return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
+            }
+            return null;
+        }
     }
 }
