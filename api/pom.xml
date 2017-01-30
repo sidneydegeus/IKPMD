@@ -7,6 +7,7 @@
     <groupId>groupId</groupId>
     <artifactId>IKPMD-Api</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -149,6 +150,7 @@
     </properties>
 
     <build>
+        <finalName>executableJar</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -4,12 +4,6 @@ import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ikpmd.model.Course;
 import com.example.ikpmd.model.Student;
 
@@ -38,37 +32,12 @@ import java.util.Map;
 
 public class StudentService extends AbstractService {
 
-
-
     public String postStudent(final Student student, Context context) {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String stringUrl = host + "add/student/";
-      /*  try {
-            URL url = new URL(stringUrl);
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setRequestMethod("POST"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
-            httpURLConnection.setRequestProperty("Content-Type", "application/json"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
-            httpURLConnection.connect();
-
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("studentNr", student.getStudentNr());
-            jsonObject.put("password", student.getPassword());
-
-            System.out.println(jsonObject.toString());
-            OutputStreamWriter wr = new OutputStreamWriter(httpURLConnection.getOutputStream());
-            wr.writeBytes(jsonObject.toString());
-            wr.flush();
-            wr.close();
-
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-        }*/
-
 
         InputStream stream = null;
         HttpURLConnection urlConnection = null;
