@@ -1,5 +1,8 @@
 package ikpmd.utility;
 
+import ikpmd.dao.interf.CourseDAO;
+import ikpmd.dao.interf.GradeDAO;
+import ikpmd.dao.interf.StudentDAO;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,8 +18,20 @@ public class BeanHandler {
     }
 
     private BeanHandler() {
-        context = new ClassPathXmlApplicationContext("spring/application-context.xml");
+        context = new ClassPathXmlApplicationContext("application-context.xml");
         context.registerShutdownHook();
+    }
+
+    public GradeDAO createGradeDAO() {
+        return (GradeDAO) context.getBean("gradeDAO");
+    }
+
+    public CourseDAO createCourseDAO() {
+        return (CourseDAO) context.getBean("courseDAO");
+    }
+
+    public StudentDAO createStudentDAO() {
+        return (StudentDAO) context.getBean("studentDAO");
     }
 
 /*    public JaarDAO createJaarDAO() {

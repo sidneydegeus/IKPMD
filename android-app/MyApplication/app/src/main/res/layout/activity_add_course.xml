@@ -77,6 +77,16 @@
                     android:paddingRight="10dp"
                     android:paddingBottom="6dp"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jaar"
+                    android:textColor="@color/primaryText"
+                    android:textSize="26sp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="6dp"/>
+
             </LinearLayout>
 
             <!-- text views end -->
@@ -131,6 +141,15 @@
                     android:textColor="@color/primaryText"
                     android:backgroundTint="#FFFFFF"
                     android:id="@+id/editTextEc" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:textColor="@color/primaryText"
+                    android:backgroundTint="#FFFFFF"
+                    android:id="@+id/editTextYear" />
 
             </LinearLayout>
 

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
 import com.example.ikpmd.activity.MainActivity;
+import com.example.ikpmd.activity.SettingsActivity;
 import com.example.ikpmd.model.Course;
 
 public class AddCourseActivity extends MainActivity {
@@ -23,6 +24,7 @@ public class AddCourseActivity extends MainActivity {
     EditText grade;
     EditText period;
     EditText ec;
+    EditText year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,9 @@ public class AddCourseActivity extends MainActivity {
     private void add() {
         if (true) {
             addCourse();
-            startActivity(new Intent(AddCourseActivity.this, CourseActivity.class));
+            Intent i = new Intent(AddCourseActivity.this, CourseActivity.class);
+            i.putExtra("addCourse", true);
+            startActivity(i);
         } else {
             //popup here
         }
@@ -62,6 +66,7 @@ public class AddCourseActivity extends MainActivity {
         course.setGrade(Double.parseDouble(grade.getText().toString()));
         course.setPeriod(Integer.parseInt(period.getText().toString()));
         course.setEc(Integer.parseInt(ec.getText().toString()));
+        course.setYear(Integer.parseInt(year.getText().toString()));
         courseDataSource.addCourse(course);
     }
 
@@ -72,5 +77,6 @@ public class AddCourseActivity extends MainActivity {
         grade = (EditText) findViewById(R.id.editTextGrade);
         period = (EditText) findViewById(R.id.editTextPeriod);
         ec = (EditText) findViewById(R.id.editTextEc);
+        year = (EditText) findViewById(R.id.editTextYear);
     }
 }

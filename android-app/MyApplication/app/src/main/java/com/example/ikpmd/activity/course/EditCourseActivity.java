@@ -1,6 +1,8 @@
 package com.example.ikpmd.activity.course;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,22 +13,26 @@ import android.widget.EditText;
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
 import com.example.ikpmd.activity.MainActivity;
+import com.example.ikpmd.activity.SettingsActivity;
 import com.example.ikpmd.model.Course;
 
 public class EditCourseActivity extends MainActivity {
 
     CourseDataSource courseDataSource;
     Course course;
+    Context context;
 
     EditText code;
     EditText name;
     EditText grade;
     EditText period;
     EditText ec;
+    EditText year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_edit_course, null, false);
         //setContentView(R.layout.activity_course);
@@ -40,22 +46,56 @@ public class EditCourseActivity extends MainActivity {
 
         courseDataSource = new CourseDataSource(this);
 
-        Button button = (Button) findViewById(R.id.buttonEdit);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button buttonEdit = (Button) findViewById(R.id.buttonEdit);
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edit();
             }
         });
+
+        Button buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete();
+            }
+        });
     }
 
     private void edit() {
-        if (true) {
-            editCourse();
-            startActivity(new Intent(EditCourseActivity.this, CourseActivity.class));
-        } else {
-            //popup here
-        }
+        editCourse();
+        Intent i = new Intent(EditCourseActivity.this, CourseActivity.class);
+        i.putExtra("editCourse", true);
+        startActivity(i);
+
+        //other error?????????
+    }
+
+    private void delete() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        DeleteCourse();
+                        Intent i = new Intent(EditCourseActivity.this, CourseActivity.class);
+                        i.putExtra("deleteCourse", true);
+                        startActivity(i);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Vak verwijderen");
+        builder.setMessage(
+                "Wil je dit vak verwijderen??"
+        ).setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nee", dialogClickListener).show();
     }
 
     private void editCourse() {
@@ -64,7 +104,12 @@ public class EditCourseActivity extends MainActivity {
         course.setGrade(Double.parseDouble(grade.getText().toString()));
         course.setPeriod(Integer.parseInt(period.getText().toString()));
         course.setEc(Integer.parseInt(ec.getText().toString()));
+        course.setYear(Integer.parseInt(year.getText().toString()));
         courseDataSource.updateCourse(course);
+    }
+
+    private void DeleteCourse() {
+        courseDataSource.deleteCourse(course);
     }
 
     private void instantiateFields() {
@@ -73,6 +118,7 @@ public class EditCourseActivity extends MainActivity {
         grade = (EditText) findViewById(R.id.editTextGrade);
         period = (EditText) findViewById(R.id.editTextPeriod);
         ec = (EditText) findViewById(R.id.editTextEc);
+        year = (EditText) findViewById(R.id.editTextYear);
     }
 
     private void fillFields(Course course) {
@@ -81,5 +127,6 @@ public class EditCourseActivity extends MainActivity {
         grade.setText(String.valueOf(course.getGrade()));
         period.setText(String.valueOf(course.getPeriod()));
         ec.setText(String.valueOf(course.getEc()));
+        year.setText(String.valueOf(course.getYear()));
     }
 }

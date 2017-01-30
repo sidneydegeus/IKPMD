@@ -2,6 +2,7 @@ package com.example.ikpmd.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -26,6 +27,7 @@ public class OverviewActivity extends MainActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private ViewPager mImageViewPager;
 
     private CourseDataSource courseDataSource;
 
@@ -49,7 +51,10 @@ public class OverviewActivity extends MainActivity {
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(mViewPager, true);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
     }
 
     private void calculateData() {
@@ -111,14 +116,6 @@ public class OverviewActivity extends MainActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
             return null;
         }
     }

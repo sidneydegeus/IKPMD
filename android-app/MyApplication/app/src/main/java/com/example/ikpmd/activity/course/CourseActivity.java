@@ -1,5 +1,6 @@
 package com.example.ikpmd.activity.course;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,10 +22,12 @@ import java.util.ArrayList;
 public class CourseActivity extends MainActivity {
 
     private CourseDataSource courseDataSource;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_course, null, false);
         //setContentView(R.layout.activity_course);
@@ -58,5 +61,23 @@ public class CourseActivity extends MainActivity {
                startActivity(new Intent(CourseActivity.this, AddCourseActivity.class));
            }
         });
+
+        checkMessages();
+    }
+
+    private void checkMessages() {
+        Intent i = getIntent();
+        if (i.getSerializableExtra("addCourse") != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Het vak is toegevoegd!").show();
+        }
+        if (i.getSerializableExtra("editCourse") != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Het vak is aangepast!").show();
+        }
+        if (i.getSerializableExtra("deleteCourse") != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Het vak is verwijderd!").show();
+        }
     }
 }

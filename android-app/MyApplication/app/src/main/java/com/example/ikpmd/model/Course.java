@@ -11,18 +11,19 @@ public class Course implements Serializable {
     private int id;
     private String code;
     private String name;
+    private int ec;
     private double grade;
     private int period;
-
-    private int ec;
+    private int year;
 
     public Course() {}
-    public Course(String code, String name, int grade, int period, int ec) {
+    public Course(String code, String name, int grade, int period, int ec, int year) {
         this.code = code.toUpperCase();
         this.name = name;
+        this.ec = ec;
         this.grade = grade;
         this.period = period;
-        this.ec = ec;
+        this.year = year;
     }
 
     public int getId() {
@@ -46,6 +47,13 @@ public class Course implements Serializable {
         this.name = name;
     }
 
+    public int getEc() {
+        return ec;
+    }
+    public void setEc(int ec) {
+        this.ec = ec;
+    }
+
     public double getGrade() {
         return grade;
     }
@@ -60,16 +68,10 @@ public class Course implements Serializable {
         this.period = period;
     }
 
-    public int getEc() {
-        return ec;
+    public int getYear() {
+        return year;
     }
-    public void setEc(int ec) {
-        this.ec = ec;
+    public void setYear(int year) {
+        this.year = year;
     }
-
-/*    @Override
-    public String toString() {
-        String result = code + ", " + name + ", " + grade;
-        return result;
-    }*/
 }

@@ -20,10 +20,12 @@ public class CourseDataSource {
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
     private String[] allColumns = {
-            MySQLiteHelper.COLUMN_CODE,
-            MySQLiteHelper.COLUMN_NAME,
-            MySQLiteHelper.COLUMN_GRADE,
-            MySQLiteHelper.COLUMN_PERIOD
+            MySQLiteHelper.COURSE_COLUMN_CODE,
+            MySQLiteHelper.COURSE_COLUMN_NAME,
+            MySQLiteHelper.COURSE_COLUMN_GRADE,
+            MySQLiteHelper.COURSE_COLUMN_PERIOD,
+            MySQLiteHelper.COURSE_COLUMN_EC,
+            MySQLiteHelper.COURSE_COLUMN_YEAR
     };
 
     public CourseDataSource(Context context) {
@@ -43,11 +45,12 @@ public class CourseDataSource {
     public void addCourse(Course course) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_CODE, course.getCode());
-        values.put(MySQLiteHelper.COLUMN_NAME, course.getName());
-        values.put(MySQLiteHelper.COLUMN_GRADE, course.getGrade());
-        values.put(MySQLiteHelper.COLUMN_PERIOD, course.getPeriod());
-        values.put(MySQLiteHelper.COLUMN_EC, course.getEc());
+        values.put(MySQLiteHelper.COURSE_COLUMN_CODE, course.getCode());
+        values.put(MySQLiteHelper.COURSE_COLUMN_NAME, course.getName());
+        values.put(MySQLiteHelper.COURSE_COLUMN_GRADE, course.getGrade());
+        values.put(MySQLiteHelper.COURSE_COLUMN_PERIOD, course.getPeriod());
+        values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
+        values.put(MySQLiteHelper.COURSE_COLUMN_YEAR, course.getYear());
         database.insert(MySQLiteHelper.TABLE_COURSE, null, values);
         close();
     }
@@ -67,6 +70,7 @@ public class CourseDataSource {
                 course.setGrade(Double.parseDouble(cursor.getString(3)));
                 course.setPeriod(Integer.parseInt(cursor.getString(4)));
                 course.setEc(Integer.parseInt(cursor.getString(5)));
+                course.setYear(Integer.parseInt(cursor.getString(6)));
                 courseList.add(course);
             } while (cursor.moveToNext());
         }
@@ -77,14 +81,28 @@ public class CourseDataSource {
     public void updateCourse(Course course) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_CODE, course.getCode());
-        values.put(MySQLiteHelper.COLUMN_NAME, course.getName());
-        values.put(MySQLiteHelper.COLUMN_GRADE, course.getGrade());
-        values.put(MySQLiteHelper.COLUMN_PERIOD, course.getPeriod());
-        values.put(MySQLiteHelper.COLUMN_EC, course.getEc());
+        values.put(MySQLiteHelper.COURSE_COLUMN_CODE, course.getCode());
+        values.put(MySQLiteHelper.COURSE_COLUMN_NAME, course.getName());
+        values.put(MySQLiteHelper.COURSE_COLUMN_GRADE, course.getGrade());
+        values.put(MySQLiteHelper.COURSE_COLUMN_PERIOD, course.getPeriod());
+        values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
+        values.put(MySQLiteHelper.COURSE_COLUMN_YEAR, course.getYear());
 
         // updating row
-        database.update(MySQLiteHelper.TABLE_COURSE, values, MySQLiteHelper.TABLE_ID + " = ?",
+        database.update(MySQLiteHelper.TABLE_COURSE, values, MySQLiteHelper.COURSE_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(course.getId()) });
+        close();
+    }
+
+    public void deleteCourse(Course course) {
+        open();
+        database.delete(MySQLiteHelper.TABLE_COURSE, MySQLiteHelper.COURSE_COLUMN_CODE + " = ?", new String[] { String.valueOf(course.getCode())});
+        close();
+    }
+
+    public void deleteAll() {
+        open();
+        database.delete(MySQLiteHelper.TABLE_COURSE, "", new String [] {} );
+        close();
     }
 }

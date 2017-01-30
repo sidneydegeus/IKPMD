@@ -11,26 +11,39 @@ import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-    public static final String TABLE_ID = "id";
     public static final String TABLE_COURSE = "course";
-    public static final String COLUMN_CODE = "code";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_GRADE = "grade";
-    public static final String COLUMN_PERIOD = "period";
-    public static final String COLUMN_EC = "ec";
+    public static final String COURSE_COLUMN_ID = "id";
+    public static final String COURSE_COLUMN_CODE = "code";
+    public static final String COURSE_COLUMN_NAME = "name";
+    public static final String COURSE_COLUMN_GRADE = "grade";
+    public static final String COURSE_COLUMN_PERIOD = "period";
+    public static final String COURSE_COLUMN_EC = "ec";
+    public static final String COURSE_COLUMN_YEAR = "year";
+
+    public static final String TABLE_STUDENT = "student";
+    public static final String STUDENT_COLUMN_ID = "student_nr";
+    public static final String STUDENT_COLUMN_PASSWORD = "password";
 
     private static final String DATABASE_NAME = "ikpmd.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
+
+    private static final String TABLE_COURSE_CREATE = "CREATE TABLE " + TABLE_COURSE + " ( "
+            + COURSE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COURSE_COLUMN_CODE + " VARCHAR, "
+            + COURSE_COLUMN_NAME + " VARCHAR NOT NULL, "
+            + COURSE_COLUMN_GRADE + " INTEGER, "
+            + COURSE_COLUMN_PERIOD + " INTEGER NOT NULL, "
+            + COURSE_COLUMN_EC + " INTEGER NOT NULL, "
+            + COURSE_COLUMN_YEAR + " INTEGER NOT NULL"
+            + ");";
+
+    private static final String TABLE_STUDENT_CREATE = "CREATE TABLE " + TABLE_STUDENT + " ( "
+            + STUDENT_COLUMN_ID + " VARCHAR PRIMARY KEY, "
+            + STUDENT_COLUMN_PASSWORD + " VARCHAR"
+            + ");";
 
     // Database creation sql statement
-    private static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_COURSE + " ( "
-            + TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_CODE + " VARCHAR, "
-            + COLUMN_NAME + " VARCHAR NOT NULL, "
-            + COLUMN_GRADE + " INTEGER, "
-            + COLUMN_PERIOD + " INTEGER NOT NULL, "
-            + COLUMN_EC + " INTEGER NOT NULL "
-            + ");";
+    //private static final String DATABASE_CREATE = TABLE_COURSE_CREATE + "\n" + TABLE_STUDENT_CREATE;
 
 
     public MySQLiteHelper(Context context) {
@@ -39,7 +52,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(DATABASE_CREATE);
+        database.execSQL(TABLE_COURSE_CREATE);
+        database.execSQL(TABLE_STUDENT_CREATE);
     }
 
     @Override
@@ -48,6 +62,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
         onCreate(db);
     }
 }
