@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public interface CourseDAO {
     public ArrayList<CourseEntity> getAll();
+    public CourseEntity getByCode(CourseEntity courseEntity);
     public void insert(CourseEntity courseEntity);
     public void update(CourseEntity courseEntity);
     public void delete(CourseEntity courseEntity);

@@ -127,7 +127,9 @@ public class SettingsActivity extends MainActivity {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         CourseDataSource courseDataSource = new CourseDataSource(context);
-                        // code hier om data te sturen naar de api
+                        List<Course> courseList = courseDataSource.getAllCourses();
+                        CourseService courseService = new CourseService();
+                        courseService.addCoursesByStudent(courseList, student.getStudentNr());
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Vakken zijn opgeslagen op de server!").show();
                         break;

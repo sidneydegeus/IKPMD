@@ -1,14 +1,15 @@
 package ikpmd.controller;
 
+import ikpmd.dao.interf.CourseDAO;
+import ikpmd.dao.interf.GradeDAO;
+import ikpmd.entity.CourseEntity;
+import ikpmd.entity.GradeCompoundKey;
 import ikpmd.entity.GradeEntity;
 import ikpmd.entity.StudentEntity;
 import ikpmd.model.CourseModel;
 import ikpmd.model.StudentModel;
 import ikpmd.utility.BeanHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +42,36 @@ public class CourseController {
             modelList.add(courseModel);
         }
         return modelList;
+    }
+
+    @RequestMapping(
+            value = "add/courses/{studentNr}",
+            method= RequestMethod.POST
+    )
+    @ResponseBody
+    public String addCoursesByStudent(@RequestBody List<CourseModel> courseModelList, @PathVariable String studentNr) {
+        System.out.println(courseModelList.size());
+        System.out.println(courseModelList.get(0).getCode());
+        CourseDAO courseDAO = BeanHandler.getInstance().createCourseDAO();
+        GradeDAO gradeDAO = BeanHandler.getInstance().createGradeDAO();
+        gradeDAO.deleteAll();
+        for (CourseModel courseModel : courseModelList) {
+            CourseEntity courseEntity = new CourseEntity(courseModel.getCode(), courseModel.getName(), courseModel.getEc());
+            // first check if they exist already, else insert
+            if (courseDAO.getByCode(courseEntity) == null) {
+                courseDAO.insert(courseEntity);
+            } else {
+                //courseDAO.update(courseEntity);
+            }
+
+            GradeEntity gradeEntity = new GradeEntity();
+            gradeEntity.setGradeCompoundKey(new GradeCompoundKey(studentNr, courseModel.getCode()));
+            gradeEntity.setGrade(courseModel.getGrade());
+            gradeEntity.setPeriod(courseModel.getPeriod());
+            gradeEntity.setYear(courseModel.getYear());
+
+            gradeDAO.insert(gradeEntity);
+        }
+        return "success";
     }
 }

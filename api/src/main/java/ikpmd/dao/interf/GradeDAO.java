@@ -11,7 +11,9 @@ import java.util.ArrayList;
  */
 public interface GradeDAO {
     public ArrayList<GradeEntity> getAllByStudent(StudentModel studentModel);
+    public GradeEntity getByCompoundKey(GradeEntity gradeEntity);
     public void insert(GradeEntity gradeEntity);
     public void update(GradeEntity gradeEntity);
     public void delete(GradeEntity gradeEntity);
+    public void deleteAll();
 }

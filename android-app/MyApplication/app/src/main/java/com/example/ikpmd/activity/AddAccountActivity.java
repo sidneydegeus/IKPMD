@@ -50,7 +50,7 @@ public class AddAccountActivity extends MainActivity {
         if (true) {
             addStudent();
             Intent i = new Intent(AddAccountActivity.this, SettingsActivity.class);
-            i.putExtra("addCourse", true);
+            i.putExtra("addAccount", true);
             startActivity(i);
         } else {
             //popup here
@@ -62,9 +62,7 @@ public class AddAccountActivity extends MainActivity {
         student.setPassword(password.getText().toString());
         studentDataSource.addStudent(student);
         StudentService studentService = new StudentService();
-
-            studentService.postStudent(student, this);
-
+        studentService.postStudent(student, this);
     }
 
 

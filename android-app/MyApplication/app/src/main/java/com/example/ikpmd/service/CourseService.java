@@ -6,6 +6,15 @@ import android.util.Log;
 
 import com.example.ikpmd.model.Course;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
@@ -26,6 +36,48 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 public class CourseService extends AbstractService {
 
 
+    public void addCoursesByStudent(List<Course> courseList, String studentNr) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < courseList.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("code", courseList.get(i).getCode());
+                jsonObject.put("name", courseList.get(i).getName());
+                jsonObject.put("grade", courseList.get(i).getGrade());
+                jsonObject.put("ec", courseList.get(i).getEc());
+                jsonObject.put("period", courseList.get(i).getPeriod());
+                jsonObject.put("year", courseList.get(i).getYear());
+                jsonArray.put(i, jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(jsonArray.toString());
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpContext httpContext = new BasicHttpContext();
+        HttpPost httpPost = new HttpPost(host + "add/courses/" + studentNr);
+
+        try {
+
+            StringEntity se = new StringEntity(jsonArray.toString());
+
+            httpPost.setEntity(se);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+
+            HttpResponse response = httpClient.execute(httpPost, httpContext); //execute your request and parse response
+            HttpEntity entity = response.getEntity();
+
+            String jsonString = EntityUtils.toString(entity); //if response in JSON format
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public ArrayList<Course> getAllByStudent(String studentNr) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()

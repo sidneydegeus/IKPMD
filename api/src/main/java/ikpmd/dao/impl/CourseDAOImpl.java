@@ -32,6 +32,11 @@ public class CourseDAOImpl extends DAO implements CourseDAO {
     }
 
     @Override
+    public CourseEntity getByCode(CourseEntity courseEntity) {
+        return manager.find(CourseEntity.class, courseEntity.getCode());
+    }
+
+    @Override
     public void insert(CourseEntity courseEntity) {
         performInsert(courseEntity);
     }

@@ -8,6 +8,7 @@ import ikpmd.model.StudentModel;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 
@@ -34,6 +35,12 @@ public class GradeDAOImpl extends DAO implements GradeDAO {
     }
 
     @Override
+    public GradeEntity getByCompoundKey(GradeEntity gradeEntity) {
+        return manager.find(GradeEntity.class, gradeEntity.getGradeCompoundKey());
+    }
+
+
+    @Override
     public void insert(GradeEntity gradeEntity) {
         performInsert(gradeEntity);
     }
@@ -46,5 +53,12 @@ public class GradeDAOImpl extends DAO implements GradeDAO {
     @Override
     public void delete(GradeEntity gradeEntity) {
         performDelete(gradeEntity);
+    }
+
+    @Override
+    public void deleteAll() {
+        String hql = String.format("delete from GradeEntity");
+        Query query = manager.createQuery(hql);
+        query.executeUpdate();
     }
 }
