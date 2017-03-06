@@ -37,7 +37,7 @@ public class SettingsActivity extends MainActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_settings, null, false);
         mDrawer.addView(contentView, 0);
-        setActivityTitle("Instellingen");
+        //setActivityTitle("Instellingen");
         studentDataSource = new StudentDataSource(this);
 
         List<Student> studentList =  studentDataSource.getAllStudents();

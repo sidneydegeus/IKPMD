@@ -34,7 +34,7 @@ public class CourseDataSource {
 
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-        //dbHelper.onUpgrade(database, 1, 2);
+        //dbHelper.onUpgrade(database, 2, 3);
     }
 
     public void close() {
@@ -51,6 +51,7 @@ public class CourseDataSource {
         values.put(MySQLiteHelper.COURSE_COLUMN_PERIOD, course.getPeriod());
         values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
         values.put(MySQLiteHelper.COURSE_COLUMN_YEAR, course.getYear());
+        values.put(MySQLiteHelper.COURSE_COLUMN_TYPE, course.getCourseType());
         database.insert(MySQLiteHelper.TABLE_COURSE, null, values);
         close();
     }
@@ -71,6 +72,31 @@ public class CourseDataSource {
                 course.setPeriod(Integer.parseInt(cursor.getString(4)));
                 course.setEc(Integer.parseInt(cursor.getString(5)));
                 course.setYear(Integer.parseInt(cursor.getString(6)));
+                course.setCourseType(Integer.parseInt(cursor.getString(7)));
+                courseList.add(course);
+            } while (cursor.moveToNext());
+        }
+        close();
+        return courseList;
+    }
+
+    public List<Course> getAllCourses(int mandatory) {
+        open();
+        List<Course> courseList = new ArrayList<Course>();
+        String selectQuery = "SELECT  * FROM " + MySQLiteHelper.TABLE_COURSE + " WHERE type = " + mandatory;
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Course course = new Course();
+                course.setId(Integer.parseInt(cursor.getString(0)));
+                course.setCode(cursor.getString(1));
+                course.setName(cursor.getString(2));
+                course.setGrade(Double.parseDouble(cursor.getString(3)));
+                course.setPeriod(Integer.parseInt(cursor.getString(4)));
+                course.setEc(Integer.parseInt(cursor.getString(5)));
+                course.setYear(Integer.parseInt(cursor.getString(6)));
+                course.setCourseType(Integer.parseInt(cursor.getString(7)));
                 courseList.add(course);
             } while (cursor.moveToNext());
         }
@@ -87,7 +113,7 @@ public class CourseDataSource {
         values.put(MySQLiteHelper.COURSE_COLUMN_PERIOD, course.getPeriod());
         values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
         values.put(MySQLiteHelper.COURSE_COLUMN_YEAR, course.getYear());
-
+        values.put(MySQLiteHelper.COURSE_COLUMN_TYPE, course.getCourseType());
         // updating row
         database.update(MySQLiteHelper.TABLE_COURSE, values, MySQLiteHelper.COURSE_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(course.getId()) });

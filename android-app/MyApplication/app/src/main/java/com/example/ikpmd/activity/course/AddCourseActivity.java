@@ -1,5 +1,6 @@
 package com.example.ikpmd.activity.course;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
 import com.example.ikpmd.activity.MainActivity;
 import com.example.ikpmd.activity.SettingsActivity;
+import com.example.ikpmd.fragment.ChoiceCourseFragment;
 import com.example.ikpmd.model.Course;
 
 public class AddCourseActivity extends MainActivity {
@@ -33,7 +35,7 @@ public class AddCourseActivity extends MainActivity {
         View contentView = inflater.inflate(R.layout.activity_add_course, null, false);
         //setContentView(R.layout.activity_course);
         mDrawer.addView(contentView, 0);
-        setActivityTitle("Vak Toevoegen");
+        //setActivityTitle("Vak Toevoegen");
 
         course = new Course();
         instantiateFields();
@@ -50,24 +52,36 @@ public class AddCourseActivity extends MainActivity {
     }
 
     private void add() {
-        if (true) {
-            addCourse();
-            Intent i = new Intent(AddCourseActivity.this, CourseActivity.class);
-            i.putExtra("addCourse", true);
-            startActivity(i);
-        } else {
-            //popup here
+        // ADD MORE ERROR HANDLING
+        if (checkFields()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            if (addCourse()) {
+                builder.setMessage("Het vak is toegevoegd!").show();
+                Intent i = new Intent(AddCourseActivity.this, Course2Activity.class);
+                i.putExtra("fragmentNumber", 2);
+                startActivity(i);
+            } else {
+                builder.setMessage("Er is iets fout gegaan met het toevoegen!").show();
+            }
         }
     }
 
-    private void addCourse() {
-        course.setCode(code.getText().toString());
-        course.setName(name.getText().toString());
-        course.setGrade(Double.parseDouble(grade.getText().toString()));
-        course.setPeriod(Integer.parseInt(period.getText().toString()));
-        course.setEc(Integer.parseInt(ec.getText().toString()));
-        course.setYear(Integer.parseInt(year.getText().toString()));
-        courseDataSource.addCourse(course);
+    private boolean addCourse() {
+        boolean result = false;
+        try {
+            course.setCode(code.getText().toString());
+            course.setName(name.getText().toString());
+            if (grade.getText().length() > 0) {
+                course.setGrade(Double.parseDouble(grade.getText().toString()));
+            }
+            course.setEc(3);
+            course.setCourseType(Course.COURSE_TYPE_CHOICE);
+            courseDataSource.addCourse(course);
+            result = true;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 
@@ -75,8 +89,25 @@ public class AddCourseActivity extends MainActivity {
         code = (EditText) findViewById(R.id.editTextCode);
         name = (EditText) findViewById(R.id.editTextName);
         grade = (EditText) findViewById(R.id.editTextGrade);
-        period = (EditText) findViewById(R.id.editTextPeriod);
         ec = (EditText) findViewById(R.id.editTextEc);
-        year = (EditText) findViewById(R.id.editTextYear);
+        ec.setEnabled(false);
+    }
+
+    private boolean checkFields() {
+        boolean result = false;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (code.getText().length() == 0
+                || name.getText().length() == 0) {
+            builder.setMessage("Je moet de code en naam invoeren!").show();
+        } else if(code.getText().length() > 7) {
+            builder.setMessage("Code mag maar maximaal 7 karakters bevatten").show();
+        } else if (grade.getText().length() != 0
+                && (Double.parseDouble(grade.getText().toString()) < 1.0 || Double.parseDouble(grade.getText().toString()) > 10.0)) {
+            builder.setMessage("Je dient een geldig cijfer, of helemaal geen cijfer in te voeren.").show();
+        }
+        else {
+            result = true;
+        }
+        return result;
     }
 }

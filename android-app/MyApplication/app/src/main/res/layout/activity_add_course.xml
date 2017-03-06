@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Naam"
-                    android:textColor="@color/primaryText"
+
                     android:textSize="26sp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"/>
@@ -60,16 +60,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Periode"
-                    android:textColor="@color/primaryText"
-                    android:textSize="26sp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="6dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="EC"
                     android:textColor="@color/primaryText"
                     android:textSize="26sp"
@@ -77,15 +67,6 @@
                     android:paddingRight="10dp"
                     android:paddingBottom="6dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jaar"
-                    android:textColor="@color/primaryText"
-                    android:textSize="26sp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="6dp"/>
 
             </LinearLayout>
 
@@ -124,32 +105,16 @@
                     android:backgroundTint="#FFFFFF"
                     android:id="@+id/editTextGrade" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:textColor="@color/primaryText"
-                    android:backgroundTint="#FFFFFF"
-                    android:id="@+id/editTextPeriod" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:ems="10"
+                    android:text="3"
+                    android:focusable="false"
                     android:textColor="@color/primaryText"
                     android:backgroundTint="#FFFFFF"
                     android:id="@+id/editTextEc" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:textColor="@color/primaryText"
-                    android:backgroundTint="#FFFFFF"
-                    android:id="@+id/editTextYear" />
 
             </LinearLayout>
 

@@ -24,6 +24,10 @@
         <activity android:name=".activity.course.AddCourseActivity" />
         <activity android:name=".activity.course.EditCourseActivity" />
         <activity android:name=".activity.AddAccountActivity" />
+        <activity
+            android:name=".activity.course.Course2Activity"
+            android:label="@string/title_activity_course2"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

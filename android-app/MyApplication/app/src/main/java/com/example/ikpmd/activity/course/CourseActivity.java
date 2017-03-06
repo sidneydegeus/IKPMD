@@ -4,22 +4,23 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 
-import com.example.ikpmd.CourseAdapter;
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
 import com.example.ikpmd.activity.MainActivity;
-import com.example.ikpmd.model.Course;
-
-import java.util.ArrayList;
+import com.example.ikpmd.fragment.ChoiceCourseFragment;
+import com.example.ikpmd.fragment.CourseFragment;
 
 public class CourseActivity extends MainActivity {
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     private CourseDataSource courseDataSource;
     private Context context;
@@ -32,11 +33,14 @@ public class CourseActivity extends MainActivity {
         View contentView = inflater.inflate(R.layout.activity_course, null, false);
         //setContentView(R.layout.activity_course);
         mDrawer.addView(contentView, 0);
-        setActivityTitle("Vakken");
+        //setActivityTitle("Vakken");
+
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         courseDataSource = new CourseDataSource(this);
 
-        ArrayList<Course> courses = (ArrayList) courseDataSource.getAllCourses();
+/*        ArrayList<Course> courses = (ArrayList) courseDataSource.getAllCourses();
         ListView listView = (ListView) findViewById(R.id.listView);
         //ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(this, android.R.layout.simple_expandable_list_item_1, courses);
         CourseAdapter adapter = new CourseAdapter(this, courses);
@@ -60,7 +64,7 @@ public class CourseActivity extends MainActivity {
             public void onClick(View v) {
                startActivity(new Intent(CourseActivity.this, AddCourseActivity.class));
            }
-        });
+        });*/
 
         checkMessages();
     }
@@ -78,6 +82,43 @@ public class CourseActivity extends MainActivity {
         if (i.getSerializableExtra("deleteCourse") != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage("Het vak is verwijderd!").show();
+        }
+    }
+
+
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment;
+            if (position == 0) {
+                fragment = CourseFragment.newInstance(position + 1);
+            } else {
+                fragment = ChoiceCourseFragment.newInstance(position + 1);
+            }
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Algemene";
+                case 1:
+                    return "Keuze";
+            }
+            return null;
         }
     }
 }

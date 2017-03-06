@@ -1,6 +1,5 @@
 package com.example.ikpmd.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,16 +11,14 @@ import android.view.View;
 
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
-import com.example.ikpmd.activity.MainActivity;
 import com.example.ikpmd.fragment.ArcProgressFragment;
 import com.example.ikpmd.fragment.ECFragment;
 import com.example.ikpmd.model.Course;
+import com.example.ikpmd.util.MandatoryCourses;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
-
-import static android.graphics.Color.parseColor;
 
 public class OverviewActivity extends MainActivity {
 
@@ -44,9 +41,19 @@ public class OverviewActivity extends MainActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_overview, null, false);
         mDrawer.addView(contentView, 0);
-        setActivityTitle("Overzicht");
+        //setActivityTitle("Overzicht");
 
         courseDataSource = new CourseDataSource(this);
+/*        MandatoryCourses mandatoryCourses = new MandatoryCourses();
+        ArrayList<Course> list = mandatoryCourses.createGeneralCourses();
+        for (Course course : list) {
+            courseDataSource.addCourse(course);
+        }
+        list = mandatoryCourses.createSpecializationCourses();
+        for (Course course : list) {
+            courseDataSource.addCourse(course);
+        }*/
+
         calculateData();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

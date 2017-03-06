@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">IKPMD</string>
+    <string name="app_name">Studieplanner</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <color name="background">#1d2026</color>
-    <color name="primaryText">#FFFFFF</color>
+    <color name="primaryText">#000000</color>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -87,4 +87,10 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main22">Main22Activity</string>
+    <string name="title_activity_course2">Studieplanner</string>
+    <string name="title_activity_testingggggggggg">TESTINGGGGGGGGGG</string>
 </resources>

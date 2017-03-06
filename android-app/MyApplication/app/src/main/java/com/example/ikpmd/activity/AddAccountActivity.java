@@ -31,7 +31,7 @@ public class AddAccountActivity extends MainActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_add_account, null, false);
         mDrawer.addView(contentView, 0);
-        setActivityTitle("Account toevoegen");
+        //setActivityTitle("Account toevoegen");
 
         student = new Student();
         instantiateFields();

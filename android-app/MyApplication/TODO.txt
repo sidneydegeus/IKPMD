@@ -1,0 +1,9 @@
+- Overzicht moet een gemiddelde weergeven en mogelijkheid om opzij te swipen voor graph data
+- toevoegen moet popup krijgen
+- bewerken moet popup krijgen
+- verwijderen moet popup krijgen en gemaakt worden
+
+should haves:
+
+- Buttons zijn mooier gestyled
+- 

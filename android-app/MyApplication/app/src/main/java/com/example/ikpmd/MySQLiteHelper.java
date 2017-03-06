@@ -19,6 +19,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COURSE_COLUMN_PERIOD = "period";
     public static final String COURSE_COLUMN_EC = "ec";
     public static final String COURSE_COLUMN_YEAR = "year";
+    public static final String COURSE_COLUMN_TYPE = "type";
 
     public static final String TABLE_STUDENT = "student";
     public static final String STUDENT_COLUMN_ID = "student_nr";
@@ -32,9 +33,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + COURSE_COLUMN_CODE + " VARCHAR, "
             + COURSE_COLUMN_NAME + " VARCHAR NOT NULL, "
             + COURSE_COLUMN_GRADE + " INTEGER, "
-            + COURSE_COLUMN_PERIOD + " INTEGER NOT NULL, "
+            + COURSE_COLUMN_PERIOD + " INTEGER, "
             + COURSE_COLUMN_EC + " INTEGER NOT NULL, "
-            + COURSE_COLUMN_YEAR + " INTEGER NOT NULL"
+            + COURSE_COLUMN_YEAR + " INTEGER, "
+            + COURSE_COLUMN_TYPE + " INTEGER NOT NULL"
             + ");";
 
     private static final String TABLE_STUDENT_CREATE = "CREATE TABLE " + TABLE_STUDENT + " ( "
