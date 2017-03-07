@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.ikpmd.model.Course;
 import com.example.ikpmd.model.Student;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,12 +34,21 @@ import java.util.Map;
 
 public class StudentService extends AbstractService {
 
-    public String postStudent(final Student student, Context context) {
+    public String registerStudent(final Student student, Context context) {
+        String path = "register/student/";
+        return func(student, context, path);
+    }
 
+    public String loginStudent(final Student student, Context context) {
+        String path = "login/student/";
+        return func(student, context, path);
+    }
+
+    private String func(final Student student, Context context, String path) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String stringUrl = host + "add/student/";
+        String stringUrl = host + path;
 
         InputStream stream = null;
         HttpURLConnection urlConnection = null;

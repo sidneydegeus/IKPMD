@@ -11,12 +11,10 @@ import android.widget.EditText;
 
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
-import com.example.ikpmd.activity.MainActivity;
-import com.example.ikpmd.activity.SettingsActivity;
-import com.example.ikpmd.fragment.ChoiceCourseFragment;
+import com.example.ikpmd.activity.BaseActivity;
 import com.example.ikpmd.model.Course;
 
-public class AddCourseActivity extends MainActivity {
+public class AddCourseActivity extends BaseActivity {
 
     CourseDataSource courseDataSource;
     Course course;
@@ -104,6 +102,8 @@ public class AddCourseActivity extends MainActivity {
         } else if (grade.getText().length() != 0
                 && (Double.parseDouble(grade.getText().toString()) < 1.0 || Double.parseDouble(grade.getText().toString()) > 10.0)) {
             builder.setMessage("Je dient een geldig cijfer, of helemaal geen cijfer in te voeren.").show();
+        } else if (code.getText().length() != 0 && courseDataSource.getCourse(code.getText().toString()) != null) {
+            builder.setMessage("Het vak met de code " + code.getText().toString() + " bestaat al.").show();
         }
         else {
             result = true;

@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
-import com.example.ikpmd.activity.MainActivity;
-import com.example.ikpmd.activity.SettingsActivity;
+import com.example.ikpmd.activity.BaseActivity;
 import com.example.ikpmd.model.Course;
 
-public class EditCourseActivity extends MainActivity {
+public class EditCourseActivity extends BaseActivity {
 
     CourseDataSource courseDataSource;
     Course course;
@@ -56,12 +55,16 @@ public class EditCourseActivity extends MainActivity {
         });
 
         Button buttonDelete = (Button) findViewById(R.id.buttonDelete);
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete();
-            }
-        });
+        if (course.getCourseType() == 2) {
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    delete();
+                }
+            });
+        } else {
+            buttonDelete.setVisibility(View.GONE);
+        }
     }
 
     private void edit() {
@@ -186,6 +189,8 @@ public class EditCourseActivity extends MainActivity {
             } else if (grade.getText().length() != 0
                     && (Double.parseDouble(grade.getText().toString()) < 1.0 || Double.parseDouble(grade.getText().toString()) > 10.0)) {
                 builder.setMessage("Je dient een geldig cijfer, of helemaal geen cijfer in te voeren.").show();
+            } else if (code.getText().length() != 0 && courseDataSource.getCourse(code.getText().toString()) != null) {
+                builder.setMessage("Het vak met de code " + code.getText().toString() + " bestaat al.").show();
             } else {
                 result = true;
             }

@@ -12,6 +12,8 @@ import com.example.ikpmd.model.Student;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ikpmd.MySQLiteHelper.TABLE_STUDENT;
+
 /**
  * Created by Sidney on 1/29/2017.
  */
@@ -44,14 +46,14 @@ public class StudentDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.STUDENT_COLUMN_ID, student.getStudentNr());
         values.put(MySQLiteHelper.STUDENT_COLUMN_PASSWORD, student.getPassword());
-        database.insert(MySQLiteHelper.TABLE_STUDENT, null, values);
+        database.insert(TABLE_STUDENT, null, values);
         close();
     }
 
     public List<Student> getAllStudents() {
         open();
         List<Student> studentList = new ArrayList<Student>();
-        String selectQuery = "SELECT  * FROM " + MySQLiteHelper.TABLE_STUDENT;
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENT;
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -68,7 +70,7 @@ public class StudentDataSource {
 
     public void deleteStudent(Student student) {
         open();
-        database.delete(MySQLiteHelper.TABLE_STUDENT, MySQLiteHelper.STUDENT_COLUMN_ID + " = ?", new String[] { String.valueOf(student.getStudentNr())});
+        database.execSQL("delete from "+ TABLE_STUDENT);
         close();
     }
 }

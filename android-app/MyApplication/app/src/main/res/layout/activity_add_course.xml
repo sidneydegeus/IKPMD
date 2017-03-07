@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Naam"
-
+                    android:textColor="@color/primaryText"
                     android:textSize="26sp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"/>

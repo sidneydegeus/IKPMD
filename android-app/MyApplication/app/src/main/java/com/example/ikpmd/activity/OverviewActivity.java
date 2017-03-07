@@ -13,14 +13,12 @@ import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
 import com.example.ikpmd.fragment.ArcProgressFragment;
 import com.example.ikpmd.fragment.ECFragment;
+import com.example.ikpmd.fragment.PieChartFragment;
 import com.example.ikpmd.model.Course;
-import com.example.ikpmd.util.MandatoryCourses;
-import com.github.lzyzsd.circleprogress.ArcProgress;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class OverviewActivity extends MainActivity {
+public class OverviewActivity extends BaseActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -29,11 +27,15 @@ public class OverviewActivity extends MainActivity {
     private CourseDataSource courseDataSource;
 
     //data
-    private double averageGrade;
-    private int totalEC = 0;
-    private int currentEC = 0;
-    private int totalCourses = 0;
-    private int coursesPassed = 0;
+    public double averageGrade;
+    public int totalEC = 0;
+    public int currentEC = 0;
+    public int failedEC = 0;
+    public int noGradeEc = 0;
+    public int totalCourses = 0;
+    public int coursesPassed = 0;
+    public int coursesFailed = 0;
+    public int coursesNoGrade = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,6 @@ public class OverviewActivity extends MainActivity {
         //setActivityTitle("Overzicht");
 
         courseDataSource = new CourseDataSource(this);
-/*        MandatoryCourses mandatoryCourses = new MandatoryCourses();
-        ArrayList<Course> list = mandatoryCourses.createGeneralCourses();
-        for (Course course : list) {
-            courseDataSource.addCourse(course);
-        }
-        list = mandatoryCourses.createSpecializationCourses();
-        for (Course course : list) {
-            courseDataSource.addCourse(course);
-        }*/
-
         calculateData();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -74,6 +66,12 @@ public class OverviewActivity extends MainActivity {
             if (course.getGrade() >= 5.5) {
                 this.currentEC += course.getEc();
                 this.coursesPassed++;
+            } else if (course.getGrade() >= 1.0 && course.getGrade() < 5.5) {
+                this.failedEC += course.getEc();
+                this.coursesFailed++;
+            } else if (course.getGrade() == 0) {
+                this.noGradeEc += course.getEc();
+                coursesNoGrade++;
             }
             if (course.getGrade() >= 1 && course.getGrade() <= 10) {
                 totalGrade += course.getGrade();
@@ -107,6 +105,8 @@ public class OverviewActivity extends MainActivity {
         public Fragment getItem(int position) {
             Fragment fragment;
             if (position == 0) {
+                fragment = PieChartFragment.newInstance(position +1);
+            } else if (position == 1) {
                 fragment = ArcProgressFragment.newInstance(position + 1);
             } else {
                 fragment = ECFragment.newInstance(position + 1);
@@ -118,7 +118,7 @@ public class OverviewActivity extends MainActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
 
         @Override

@@ -57,12 +57,21 @@ public class MandatoryCourses {
         iqua.setCourseType(Course.COURSE_TYPE_GENERAL);
         list.add(iqua);
 
+        // ieth
+        Course ieth = new Course();
+        ieth.setCode("IETH");
+        ieth.setName("Ethiek");
+        ieth.setPeriod(4);
+        ieth.setEc(3);
+        ieth.setYear(2);
+        ieth.setCourseType(Course.COURSE_TYPE_GENERAL);
+        list.add(ieth);
+
         // iitorg
         Course iitorg = new Course();
         iitorg.setCode("IITORG");
         iitorg.setName("Kwaliteit in de IT");
         iitorg.setEc(3);
-        iitorg.setYear(3);
         iitorg.setCourseType(Course.COURSE_TYPE_GENERAL);
         list.add(iitorg);
 
@@ -71,7 +80,6 @@ public class MandatoryCourses {
         isec.setCode("ISEC");
         isec.setName("");
         isec.setEc(3);
-        isec.setYear(3);
         isec.setCourseType(Course.COURSE_TYPE_GENERAL);
         list.add(isec);
 
@@ -80,7 +88,6 @@ public class MandatoryCourses {
         islh.setCode("ISLH");
         islh.setName("Studieloopbaanbegeleiding hoofdfase");
         islh.setEc(3);
-        islh.setYear(4);
         islh.setCourseType(Course.COURSE_TYPE_GENERAL);
         list.add(islh);
 
@@ -137,15 +144,15 @@ public class MandatoryCourses {
         ipsenh.setCourseType(Course.COURSE_TYPE_SPECIALIZATION);
         list.add(ipsenh);
 
-        // iopr3
         Course iopr3 = new Course();
         iopr3.setCode("IOPR3");
-        iopr3.setName("Objectgeoriënteerd programmeren 3");
-        iopr3.setPeriod(1);
+        iopr3.setName("Object georienteerd programmeren 3");
+        iopr3.setPeriod(2);
         iopr3.setEc(3);
         iopr3.setYear(2);
         iopr3.setCourseType(Course.COURSE_TYPE_SPECIALIZATION);
         list.add(iopr3);
+
 
         // irdm
         Course irdm = new Course();
@@ -204,12 +211,24 @@ public class MandatoryCourses {
         return list;
     }
 
-    private void createMinorCourses() {
-        Course minor = new Course();
-        minor.setCode("IKM30");
-        minor.setName("Externe Minor");
-        minor.setEc(30);
-        minor.setCourseType(Course.COURSE_TYPE_MINOR);
+    public ArrayList<Course> createInternshipCourses() {
+        ArrayList<Course> list = new ArrayList<>();
+        // iwls
+        Course iwls = new Course();
+        iwls.setCode("IWLS");
+        iwls.setName("Stage");
+        iwls.setEc(30);
+        iwls.setCourseType(Course.COURSE_TYPE_GENERAL);
+        list.add(iwls);
 
+        //iwlh
+        Course iwlh = new Course();
+        iwlh.setCode("IWLH");
+        iwlh.setName("Afstudeer stage");
+        iwlh.setEc(30);
+        iwlh.setCourseType(Course.COURSE_TYPE_GENERAL);
+        list.add(iwlh);
+
+        return list;
     }
 }

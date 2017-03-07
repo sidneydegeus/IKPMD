@@ -14,8 +14,9 @@ import java.net.URL;
  */
 public abstract class AbstractService {
 
-    protected String host = "http://10.0.2.2:8080/";
+    //protected String host = "http://10.0.2.2:8080/";
     /*protected String host = "http://192.168.178.14:8080/";*/
+    protected String host = "http://83.86.27.64:8080/";
 
     protected JSONArray getJSONObjectFromURL(String urlString) throws IOException, JSONException {
         HttpURLConnection urlConnection = null;

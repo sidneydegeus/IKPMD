@@ -12,6 +12,8 @@ import android.widget.ListView;
 
 import com.example.ikpmd.CourseAdapter;
 import com.example.ikpmd.R;
+import com.example.ikpmd.CourseIntroAdapter;
+import com.example.ikpmd.activity.IntroActivity;
 import com.example.ikpmd.activity.course.Course2Activity;
 import com.example.ikpmd.activity.course.EditCourseActivity;
 import com.example.ikpmd.model.Course;

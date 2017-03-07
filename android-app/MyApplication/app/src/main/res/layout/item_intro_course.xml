@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+
+            <TextView
+                android:id="@+id/textViewCode"
+                android:textColor="@color/primaryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code"
+                android:textSize="30sp"
+                android:paddingTop="10dp"
+                android:layout_marginRight="100dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:textColor="@color/primaryText"
+            android:backgroundTint="#FFFFFF"
+            android:id="@+id/editTextGrade" />
+
+
+</LinearLayout>

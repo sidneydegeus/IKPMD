@@ -13,11 +13,11 @@ import android.view.View;
 
 import com.example.ikpmd.CourseDataSource;
 import com.example.ikpmd.R;
-import com.example.ikpmd.activity.MainActivity;
+import com.example.ikpmd.activity.BaseActivity;
 import com.example.ikpmd.fragment.ChoiceCourseFragment;
 import com.example.ikpmd.fragment.CourseFragment;
 
-public class CourseActivity extends MainActivity {
+public class CourseActivity extends BaseActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;

@@ -63,7 +63,12 @@ public class ArcProgressFragment extends Fragment {
 
         double fractionalPart = averageGrade % 1;
         DecimalFormat decimalFormat = new DecimalFormat(".00");
-        String fractional = decimalFormat.format(fractionalPart);
+        String fractional;
+        if (Double.isNaN(fractionalPart)) {
+            fractional = "0";
+        } else {
+            fractional = decimalFormat.format(fractionalPart);
+        }
         arcProgress.setSuffixText(fractional);
     }
 

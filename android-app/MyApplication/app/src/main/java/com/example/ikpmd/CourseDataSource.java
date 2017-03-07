@@ -52,8 +52,30 @@ public class CourseDataSource {
         values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
         values.put(MySQLiteHelper.COURSE_COLUMN_YEAR, course.getYear());
         values.put(MySQLiteHelper.COURSE_COLUMN_TYPE, course.getCourseType());
+
         database.insert(MySQLiteHelper.TABLE_COURSE, null, values);
         close();
+    }
+
+    public Course getCourse(String code) {
+        open();
+        String selectQuery = "SELECT  * FROM " + MySQLiteHelper.TABLE_COURSE + " WHERE code = '" + code.toUpperCase() + "'";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        Course course = null;
+        if (cursor.moveToFirst()) {
+            course = new Course();
+                course.setId(Integer.parseInt(cursor.getString(0)));
+                course.setCode(cursor.getString(1));
+                course.setName(cursor.getString(2));
+                course.setGrade(Double.parseDouble(cursor.getString(3)));
+                course.setPeriod(Integer.parseInt(cursor.getString(4)));
+                course.setEc(Integer.parseInt(cursor.getString(5)));
+                course.setYear(Integer.parseInt(cursor.getString(6)));
+                course.setCourseType(Integer.parseInt(cursor.getString(7)));
+
+        }
+        close();
+        return course;
     }
 
     public List<Course> getAllCourses() {
@@ -107,13 +129,15 @@ public class CourseDataSource {
     public void updateCourse(Course course) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COURSE_COLUMN_CODE, course.getCode());
-        values.put(MySQLiteHelper.COURSE_COLUMN_NAME, course.getName());
+        if (course.getCourseType() == 2 || course.getCourseType() == 3) {
+            values.put(MySQLiteHelper.COURSE_COLUMN_CODE, course.getCode());
+            values.put(MySQLiteHelper.COURSE_COLUMN_NAME, course.getName());
+        }
         values.put(MySQLiteHelper.COURSE_COLUMN_GRADE, course.getGrade());
-        values.put(MySQLiteHelper.COURSE_COLUMN_PERIOD, course.getPeriod());
+/*        values.put(MySQLiteHelper.COURSE_COLUMN_PERIOD, course.getPeriod());
         values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
         values.put(MySQLiteHelper.COURSE_COLUMN_YEAR, course.getYear());
-        values.put(MySQLiteHelper.COURSE_COLUMN_TYPE, course.getCourseType());
+        values.put(MySQLiteHelper.COURSE_COLUMN_TYPE, course.getCourseType());*/
         // updating row
         database.update(MySQLiteHelper.TABLE_COURSE, values, MySQLiteHelper.COURSE_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(course.getId()) });

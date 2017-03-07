@@ -8,7 +8,7 @@
     tools:context="com.example.ikpmd.activity.SettingsActivity">
 
     <Button
-        android:text="Account toevoegen"
+        android:text="Uitloggen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
+<!--    <Button
         android:text="Vakken online opslaan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:id="@+id/buttonExportData"
         android:layout_below="@+id/buttonImportData"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true" />-->
 
     <TextView
         android:text="student nr"
@@ -41,7 +41,7 @@
         android:textColor="@color/colorPrimary"
         android:textAlignment="center" />
 
-    <Button
+<!--    <Button
         android:text="Vakken online laden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,5 +49,5 @@
         android:id="@+id/buttonImportData"
         android:layout_below="@+id/textViewStudentNr"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true" />-->
 </RelativeLayout>
