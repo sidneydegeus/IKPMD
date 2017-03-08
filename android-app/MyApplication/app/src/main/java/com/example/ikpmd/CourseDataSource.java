@@ -129,7 +129,10 @@ public class CourseDataSource {
     public void updateCourse(Course course) {
         open();
         ContentValues values = new ContentValues();
-        if (course.getCourseType() == 2 || course.getCourseType() == 3) {
+        if (course.getCourseType() == Course.COURSE_TYPE_CHOICE || course.getCourseType() == Course.COURSE_TYPE_MINOR) {
+            if (course.getCourseType() == Course.COURSE_TYPE_MINOR) {
+                values.put(MySQLiteHelper.COURSE_COLUMN_EC, course.getEc());
+            }
             values.put(MySQLiteHelper.COURSE_COLUMN_CODE, course.getCode());
             values.put(MySQLiteHelper.COURSE_COLUMN_NAME, course.getName());
         }

@@ -218,7 +218,7 @@ public class MandatoryCourses {
         iwls.setCode("IWLS");
         iwls.setName("Stage");
         iwls.setEc(30);
-        iwls.setCourseType(Course.COURSE_TYPE_GENERAL);
+        iwls.setCourseType(Course.COURSE_TYPE_INTERNSHIP);
         list.add(iwls);
 
         //iwlh
@@ -226,7 +226,7 @@ public class MandatoryCourses {
         iwlh.setCode("IWLH");
         iwlh.setName("Afstudeer stage");
         iwlh.setEc(30);
-        iwlh.setCourseType(Course.COURSE_TYPE_GENERAL);
+        iwlh.setCourseType(Course.COURSE_TYPE_INTERNSHIP);
         list.add(iwlh);
 
         return list;

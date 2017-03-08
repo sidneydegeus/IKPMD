@@ -16,6 +16,8 @@ import com.example.ikpmd.R;
 import com.example.ikpmd.activity.BaseActivity;
 import com.example.ikpmd.model.Course;
 
+import java.util.ArrayList;
+
 public class EditCourseActivity extends BaseActivity {
 
     CourseDataSource courseDataSource;
@@ -55,7 +57,7 @@ public class EditCourseActivity extends BaseActivity {
         });
 
         Button buttonDelete = (Button) findViewById(R.id.buttonDelete);
-        if (course.getCourseType() == 2) {
+        if (course.getCourseType() == 2 || course.getCourseType() == 3) {
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -115,7 +117,7 @@ public class EditCourseActivity extends BaseActivity {
     private boolean editCourse() {
         boolean result = false;
         try {
-            if (course.getCourseType() == Course.COURSE_TYPE_CHOICE) {
+            if (course.getCourseType() == Course.COURSE_TYPE_CHOICE || course.getCourseType() == Course.COURSE_TYPE_MINOR) {
                 course.setCode(code.getText().toString());
                 course.setName(name.getText().toString());
                 course.setGrade(Double.parseDouble(grade.getText().toString()));
@@ -147,12 +149,16 @@ public class EditCourseActivity extends BaseActivity {
         name = (EditText) findViewById(R.id.editTextName);
         grade = (EditText) findViewById(R.id.editTextGrade);
         ec = (EditText) findViewById(R.id.editTextEc);
-        ec.setFocusable(false);
         period = (EditText) findViewById(R.id.editTextPeriod);
         period.setFocusable(false);
         year = (EditText) findViewById(R.id.editTextYear);
         year.setFocusable(false);
-        if (course.getCourseType() == Course.COURSE_TYPE_CHOICE) {
+        if (course.getCourseType() == Course.COURSE_TYPE_CHOICE || course.getCourseType() == Course.COURSE_TYPE_MINOR) {
+            if ( course.getCourseType() == Course.COURSE_TYPE_MINOR) {
+                ec.setFocusable(true);
+            } else {
+                ec.setFocusable(false);
+            }
             TextView periodText = (TextView) findViewById(R.id.textViewPeriod);
             TextView yearText = (TextView) findViewById(R.id.textViewYear);
             period.setVisibility(View.GONE);
@@ -160,6 +166,7 @@ public class EditCourseActivity extends BaseActivity {
             year.setVisibility(View.GONE);
             yearText.setVisibility(View.GONE);
         } else {
+            ec.setFocusable(false);
             code = (EditText) findViewById(R.id.editTextCode);
             code.setFocusable(false);
             name = (EditText) findViewById(R.id.editTextName);
@@ -178,9 +185,18 @@ public class EditCourseActivity extends BaseActivity {
 
     private boolean checkFields() {
         boolean result = false;
+
+        int minorEc = 0;
+        if (course.getCourseType() == Course.COURSE_TYPE_MINOR) {
+            ArrayList<Course> list = (ArrayList<Course>) courseDataSource.getAllCourses(3);
+            for (Course course : list) {
+                minorEc += course.getEc();
+            }
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //  if course mandatory is not required (keuze vak)
-        if (course.getCourseType() == Course.COURSE_TYPE_CHOICE) {
+        if (course.getCourseType() == Course.COURSE_TYPE_CHOICE || course.getCourseType() == Course.COURSE_TYPE_MINOR) {
             if (code.getText().length() == 0
                     || name.getText().length() == 0) {
                 builder.setMessage("Je moet de code en naam invoeren!").show();
@@ -189,8 +205,9 @@ public class EditCourseActivity extends BaseActivity {
             } else if (grade.getText().length() != 0
                     && (Double.parseDouble(grade.getText().toString()) < 1.0 || Double.parseDouble(grade.getText().toString()) > 10.0)) {
                 builder.setMessage("Je dient een geldig cijfer, of helemaal geen cijfer in te voeren.").show();
-            } else if (code.getText().length() != 0 && courseDataSource.getCourse(code.getText().toString()) != null) {
-                builder.setMessage("Het vak met de code " + code.getText().toString() + " bestaat al.").show();
+            } else if (course.getCourseType() == Course.COURSE_TYPE_MINOR
+                    && (minorEc + Integer.parseInt(ec.getText().toString()) > 30 )) {
+                builder.setMessage("Minor (of alle minor vakken gecombineerd) kunnen niet meer dan 30 EC bevatten. Huidig gebruikte EC: " + minorEc).show();
             } else {
                 result = true;
             }

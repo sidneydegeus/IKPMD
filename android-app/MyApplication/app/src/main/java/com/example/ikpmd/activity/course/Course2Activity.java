@@ -19,6 +19,7 @@ import com.example.ikpmd.R;
 import com.example.ikpmd.activity.BaseActivity;
 import com.example.ikpmd.fragment.ChoiceCourseFragment;
 import com.example.ikpmd.fragment.CourseFragment;
+import com.example.ikpmd.fragment.MinorCourseFragment;
 import com.example.ikpmd.model.Course;
 
 import java.util.ArrayList;
@@ -94,6 +95,8 @@ public class Course2Activity extends BaseActivity {
             Fragment fragment;
             if (position == Course.COURSE_TYPE_CHOICE) {
                 fragment = ChoiceCourseFragment.newInstance(position + 1);
+            } else if (position == Course.COURSE_TYPE_MINOR) {
+                fragment = MinorCourseFragment.newInstance(position +1);
             } else {
                 fragment = CourseFragment.newInstance(position + 1);
             }

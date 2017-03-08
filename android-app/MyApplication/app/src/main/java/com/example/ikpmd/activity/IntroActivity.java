@@ -1,7 +1,10 @@
 package com.example.ikpmd.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -138,9 +141,18 @@ public class IntroActivity extends AppIntro {
     }
 
     private void exportData() {
-        CourseDataSource courseDataSource = new CourseDataSource(this);
-        List<Course> courseList = courseDataSource.getAllCourses();
-        CourseService courseService = new CourseService();
-        courseService.addCoursesByStudent(courseList, student.getStudentNr());
+        if (isNetworkAvailable()) {
+            CourseDataSource courseDataSource = new CourseDataSource(this);
+            List<Course> courseList = courseDataSource.getAllCourses();
+            CourseService courseService = new CourseService();
+            courseService.addCoursesByStudent(courseList, student.getStudentNr());
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

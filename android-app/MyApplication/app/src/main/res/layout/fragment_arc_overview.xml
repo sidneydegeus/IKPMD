@@ -33,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/arc_progress"
             android:layout_centerHorizontal="true"
-            android:text="Gemiddelde alle vakken"
+            android:text="Gemiddelde\nalle\nvakken"
+            android:gravity="center"
             android:textColor="@color/primaryText"
             android:textSize="30sp" />
     </RelativeLayout>

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,12 +83,17 @@ public class SettingsActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        exportData();
-                        studentDataSource.deleteStudent(student);
-                        courseDataSource.deleteAll();
-                        getSharedPreferences("com.example.ikpmd", MODE_PRIVATE).edit().putBoolean("firstrun", true).apply();
-                        Intent i = new Intent(SettingsActivity.this, MainActivity.class);
-                        startActivity(i);
+                        if (isNetworkAvailable()) {
+                            exportData();
+                            studentDataSource.deleteStudent(student);
+                            courseDataSource.deleteAll();
+                            getSharedPreferences("com.example.ikpmd", MODE_PRIVATE).edit().putBoolean("firstrun", true).apply();
+                            Intent i = new Intent(SettingsActivity.this, MainActivity.class);
+                            startActivity(i);
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                            builder.setMessage("Je kunt het account niet uitloggen als er geen internet connectie is.").show();
+                        }
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -100,5 +107,12 @@ public class SettingsActivity extends BaseActivity {
         builder.setMessage(
                 "Weet je zeker dat je wilt uitloggen?"
         ).setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nee", dialogClickListener).show();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

@@ -26,6 +26,8 @@ import java.util.List;
 
 public class ChoiceCourseFragment extends Fragment {
 
+    Intent i;
+
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     public ChoiceCourseFragment() {
@@ -66,7 +68,9 @@ public class ChoiceCourseFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AddCourseActivity.class));
+                Intent i = new Intent(getActivity(), AddCourseActivity.class);
+                i.putExtra("course", "choice");
+                startActivity(i);
             }
         });
 
